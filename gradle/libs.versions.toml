@@ -1,0 +1,68 @@
+[versions]
+java = "25"
+springBoot = "4.0.6"
+dependencyManagement = "1.1.7"
+swaggerParser = "2.1.38"
+javapoet = "1.13.0"
+jsonSchemaValidator = "1.5.9"
+restate = "2.5.0"
+jooq = "3.20.11"
+postgresql = "42.7.8"
+springAi = "1.1.0"
+springBootAdmin = "4.0.2"
+jackson2 = "2.18.3"
+junitJupiter = "5.11.4"
+liquibasePlugin = "3.1.0"
+jooqPlugin = "10.2"
+liquibaseCore = "5.0.1"
+openhtmltopdf = "1.0.10"
+jjwt = "0.12.6"
+testcontainers = "2.0.2"
+jacoco = "0.8.14"
+
+[libraries]
+swagger-parser = { module = "io.swagger.parser.v3:swagger-parser-v3", version.ref = "swaggerParser" }
+javapoet = { module = "com.squareup:javapoet", version.ref = "javapoet" }
+jackson2-yaml = { module = "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml", version.ref = "jackson2" }
+jackson2-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson2" }
+json-schema-validator = { module = "com.networknt:json-schema-validator", version.ref = "jsonSchemaValidator" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junitJupiter" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
+spring-boot-starter-webmvc = { module = "org.springframework.boot:spring-boot-starter-webmvc" }
+spring-boot-autoconfigure = { module = "org.springframework.boot:spring-boot-autoconfigure" }
+spring-tx = { module = "org.springframework:spring-tx" }
+spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
+spring-boot-starter-jdbc = { module = "org.springframework.boot:spring-boot-starter-jdbc" }
+spring-boot-starter-jooq = { module = "org.springframework.boot:spring-boot-starter-jooq", version.ref = "springBoot" }
+spring-boot-starter-liquibase = { module = "org.springframework.boot:spring-boot-starter-liquibase" }
+spring-boot-starter-security = { module = "org.springframework.boot:spring-boot-starter-security" }
+spring-boot-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation" }
+spring-boot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator" }
+spring-boot-starter-data-redis = { module = "org.springframework.boot:spring-boot-starter-data-redis" }
+spring-boot-starter-webmvc-test = { module = "org.springframework.boot:spring-boot-starter-webmvc-test" }
+spring-security-test = { module = "org.springframework.security:spring-security-test" }
+jackson-databind = { module = "tools.jackson.core:jackson-databind" }
+jackson-yaml = { module = "tools.jackson.dataformat:jackson-dataformat-yaml" }
+lombok = { module = "org.projectlombok:lombok" }
+jooq = { module = "org.jooq:jooq", version.ref = "jooq" }
+jooq-meta = { module = "org.jooq:jooq-meta", version.ref = "jooq" }
+jooq-codegen = { module = "org.jooq:jooq-codegen", version.ref = "jooq" }
+postgresql = { module = "org.postgresql:postgresql", version.ref = "postgresql" }
+liquibase-core = { module = "org.liquibase:liquibase-core", version.ref = "liquibaseCore" }
+spring-ai-google-genai = { module = "org.springframework.ai:spring-ai-starter-model-google-genai", version.ref = "springAi" }
+restate-spring-boot = { module = "dev.restate:sdk-spring-boot-starter", version.ref = "restate" }
+restate-api-gen = { module = "dev.restate:sdk-api-gen", version.ref = "restate" }
+restate-testing = { module = "dev.restate:sdk-testing", version.ref = "restate" }
+spring-boot-admin-client = { module = "de.codecentric:spring-boot-admin-starter-client" }
+openhtmltopdf = { module = "com.openhtmltopdf:openhtmltopdf-pdfbox", version.ref = "openhtmltopdf" }
+jjwt-api = { module = "io.jsonwebtoken:jjwt-api", version.ref = "jjwt" }
+jjwt-impl = { module = "io.jsonwebtoken:jjwt-impl", version.ref = "jjwt" }
+jjwt-jackson = { module = "io.jsonwebtoken:jjwt-jackson", version.ref = "jjwt" }
+testcontainers-postgresql = { module = "org.testcontainers:testcontainers-postgresql", version.ref = "testcontainers" }
+testcontainers-junit = { module = "org.testcontainers:testcontainers-junit-jupiter", version.ref = "testcontainers" }
+
+[plugins]
+spring-boot = { id = "org.springframework.boot", version.ref = "springBoot" }
+dependency-management = { id = "io.spring.dependency-management", version.ref = "dependencyManagement" }
+liquibase = { id = "org.liquibase.gradle", version.ref = "liquibasePlugin" }
+jooq = { id = "nu.studer.jooq", version.ref = "jooqPlugin" }

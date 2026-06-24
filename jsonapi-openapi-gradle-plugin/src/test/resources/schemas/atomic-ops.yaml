@@ -1,0 +1,27 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://jsonapi.openapi.spring/schemas/atomic-ops.yaml
+title: AtomicOps
+type: object
+x-entity: AtomicOps
+x-resource-type: atomicOps
+properties:
+  '@id':
+    type: string
+    x-field: /AtomicOps/id
+  action:
+    type: string
+    x-field: /AtomicOps/action
+
+dependentSchemas:
+  $:
+    anyOf:
+      - $ref: '#/$defs/confirm-action-request'
+        x-service: atomicService.confirmAction
+
+$defs:
+  confirm-action-request:
+    type: object
+    required: [action]
+    properties:
+      action: { type: string }
+  confirm-action-response: {}

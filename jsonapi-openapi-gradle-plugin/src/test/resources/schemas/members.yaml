@@ -1,0 +1,27 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://jsonapi.openapi.spring/schemas/members.yaml
+title: Member
+type: object
+x-entity: Member
+x-resource-type: members
+properties:
+  '@id':
+    type: string
+    x-field: /Member/id
+  name:
+    type: string
+    x-field: /Member/name
+  status:
+    type: string
+    x-field: /Member/status
+
+dependentSchemas:
+  $:
+    anyOf:
+      - $ref: '#/$defs/find-request'
+        x-service: memberService.findAll
+
+$defs:
+  find-request:
+    type: object
+  find-response: {}

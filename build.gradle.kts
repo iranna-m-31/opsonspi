@@ -1,0 +1,41 @@
+subprojects {
+    group = "com.jsonapi.openapi"
+    version = property("projectVersion").toString()
+
+    repositories {
+        mavenCentral()
+    }
+
+    plugins.withId("java") {
+        extensions.configure<JavaPluginExtension> {
+            toolchain {
+                languageVersion.set(JavaLanguageVersion.of(project.property("javaVersion").toString().toInt()))
+            }
+        }
+    }
+    plugins.withId("java-library") {
+        extensions.configure<JavaPluginExtension> {
+            toolchain {
+                languageVersion.set(JavaLanguageVersion.of(project.property("javaVersion").toString().toInt()))
+            }
+        }
+    }
+}
+
+tasks.register("publishLibrariesToMavenLocal") {
+    group = "publishing"
+    description = "Publish plugin and starter to mavenLocal() (use -PpublishOnly=true on first run)"
+    dependsOn(
+        ":jsonapi-openapi-gradle-plugin:publishToMavenLocal",
+        ":jsonapi-openapi-spring-boot-starter:publishToMavenLocal"
+    )
+}
+
+tasks.register("checkAll") {
+    group = "verification"
+    description = "Run check on plugin and starter"
+    dependsOn(
+        ":jsonapi-openapi-gradle-plugin:check",
+        ":jsonapi-openapi-spring-boot-starter:check"
+    )
+}
