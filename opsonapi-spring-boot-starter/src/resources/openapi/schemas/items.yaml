@@ -1,0 +1,26 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+type: object
+x-entity: Item
+x-resource-type: items
+properties:
+  '@id':
+    type: string
+    x-field: /Item/id
+  name:
+    type: string
+    x-field: /Item/name
+dependentSchemas:
+  $:
+    anyOf:
+      - $ref: '#/$defs/find-request'
+        x-service: itemService.findAll
+      - $ref: '#/$defs/add-request'
+        x-service: itemService.create
+$defs:
+  find-request:
+    type: object
+  add-request:
+    type: object
+    required: [name]
+  find-response: {}
+  add-response: {}

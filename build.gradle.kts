@@ -1,5 +1,5 @@
 subprojects {
-    group = "com.jsonapi.openapi"
+    group = "com.opsonapi"
     version = property("projectVersion").toString()
 
     repositories {
@@ -26,8 +26,8 @@ tasks.register("publishLibrariesToMavenLocal") {
     group = "publishing"
     description = "Publish plugin and starter to mavenLocal() (use -PpublishOnly=true on first run)"
     dependsOn(
-        ":jsonapi-openapi-gradle-plugin:publishToMavenLocal",
-        ":jsonapi-openapi-spring-boot-starter:publishToMavenLocal"
+        ":opsonapi-gradle-plugin:publishToMavenLocal",
+        ":opsonapi-spring-boot-starter:publishToMavenLocal"
     )
 }
 
@@ -35,7 +35,7 @@ tasks.register("checkAll") {
     group = "verification"
     description = "Run check on plugin and starter"
     dependsOn(
-        ":jsonapi-openapi-gradle-plugin:check",
-        ":jsonapi-openapi-spring-boot-starter:check"
+        ":opsonapi-gradle-plugin:check",
+        ":opsonapi-spring-boot-starter:check"
     )
 }

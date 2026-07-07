@@ -38,7 +38,7 @@ publishing {
         create<MavenPublication>("maven") {
             from(components["java"])
             pom {
-                name.set("JSON:API OpenAPI Spring Boot Starter")
+                name.set("OpsonAPI Spring Boot Starter")
                 description.set("Spring Boot starter for JSON:API APIs driven by OpenAPI 3.1 specs")
             }
         }
