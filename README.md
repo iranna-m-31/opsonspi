@@ -1,4 +1,4 @@
-# JSON:API OpenAPI Spring
+# OpsonAPI Spring
 
 Gradle plugin and Spring Boot starter for JSON:API APIs driven by **OpenAPI 3.1** specs and entity YAML schemas.
 
@@ -6,8 +6,8 @@ Gradle plugin and Spring Boot starter for JSON:API APIs driven by **OpenAPI 3.1*
 
 | Module | Purpose |
 |--------|---------|
-| [`jsonapi-openapi-gradle-plugin`](jsonapi-openapi-gradle-plugin/README.md) | Wire schema generation, OpenAPI validation, codegen |
-| [`jsonapi-openapi-spring-boot-starter`](jsonapi-openapi-spring-boot-starter/README.md) | Runtime dispatcher, mapping, validation, atomic ops |
+| [`opsonapi-gradle-plugin`](opsonapi-gradle-plugin/README.md) | Wire schema generation, OpenAPI validation, codegen |
+| [`opsonapi-spring-boot-starter`](opsonapi-spring-boot-starter/README.md) | Runtime dispatcher, mapping, validation, atomic ops |
 
 ## Reference application
 
@@ -31,10 +31,10 @@ pluginManagement {
         gradlePluginPortal()
     }
     plugins {
-        id("com.jsonapi.openapi") version "0.1.0-SNAPSHOT"
+        id("com.opsonapi") version "0.1.0-SNAPSHOT"
     }
 }
-rootProject.name = "my-jsonapi-app"
+rootProject.name = "my-opsonapi-app"
 ```
 
 **build.gradle.kts**
@@ -44,7 +44,7 @@ plugins {
     java
     id("org.springframework.boot") version "4.0.6"
     id("io.spring.dependency-management") version "1.1.7"
-    id("com.jsonapi.openapi")
+    id("com.opsonapi")
 }
 
 repositories {
@@ -54,10 +54,10 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("com.jsonapi.openapi:jsonapi-openapi-spring-boot-starter:0.1.0-SNAPSHOT")
+    implementation("com.opsonapi:opsonapi-spring-boot-starter:0.1.0-SNAPSHOT")
 }
 
-jsonapiOpenapi {
+opsonapi {
     generatedPackage.set("com.example.generated")
 }
 ```
@@ -65,7 +65,7 @@ jsonapiOpenapi {
 **src/main/resources/application.yml**
 
 ```yaml
-jsonapi:
+opsonapi:
   openapi:
     entity-package: com.example.model
 ```
@@ -80,13 +80,13 @@ Entity schema conventions: [docs/entity-schemas.md](docs/entity-schemas.md).
 ./gradlew -PpublishOnly=true publishLibrariesToMavenLocal
 ```
 
-Coordinates: `com.jsonapi.openapi` / `0.1.0-SNAPSHOT`.
+Coordinates: `com.opsonapi` / `0.1.0-SNAPSHOT`.
 
 ## Architecture
 
-- **Context**: [`JsonApiServiceContext`](jsonapi-openapi-spring-boot-starter/src/main/java/com/jsonapi/openapi/context/JsonApiServiceContext.java) — `portal_id`, pagination, sort, filter, include, sparse fields.
-- **Dispatch**: [`JsonApiDispatcherController`](jsonapi-openapi-spring-boot-starter/src/main/java/com/jsonapi/openapi/web/JsonApiDispatcherController.java) matches OpenAPI paths and invokes `x-service` beans.
-- **Atomic ops**: [`JsonApiAtomicProcessor`](jsonapi-openapi-spring-boot-starter/src/main/java/com/jsonapi/openapi/atomic/JsonApiAtomicProcessor.java) uses `x-atomic-allowed-operations` and `x-atomic-operation-services`.
+- **Context**: [`JsonApiServiceContext`](opsonapi-spring-boot-starter/src/main/java/com/opsonapi/context/JsonApiServiceContext.java) — `portal_id`, pagination, sort, filter, include, sparse fields.
+- **Dispatch**: [`JsonApiDispatcherController`](opsonapi-spring-boot-starter/src/main/java/com/opsonapi/web/JsonApiDispatcherController.java) matches OpenAPI paths and invokes `x-service` beans.
+- **Atomic ops**: [`JsonApiAtomicProcessor`](opsonapi-spring-boot-starter/src/main/java/com/opsonapi/atomic/JsonApiAtomicProcessor.java) uses `x-atomic-allowed-operations` and `x-atomic-operation-services`.
 
 
 ## Verification

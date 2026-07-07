@@ -1,6 +1,6 @@
-# JSON:API OpenAPI Gradle Plugin
+# OpsonAPI Gradle Plugin
 
-Gradle plugin (`com.jsonapi.openapi`) that generates JSON:API wire schemas and support code from OpenAPI 3.1 specs and entity YAML files.
+Gradle plugin (`com.opsonapi`) that generates JSON:API wire schemas and support code from OpenAPI 3.1 specs and entity YAML files.
 
 ## Installation
 
@@ -18,24 +18,24 @@ pluginManagement {
         gradlePluginPortal()
     }
     plugins {
-        id("com.jsonapi.openapi") version "0.1.0-SNAPSHOT"
+        id("com.opsonapi") version "0.1.0-SNAPSHOT"
     }
 }
 
 // build.gradle.kts
 plugins {
-    id("com.jsonapi.openapi")
+    id("com.opsonapi")
 }
 ```
 
-**Composite build (contributors):** include the plugin project in `pluginManagement { includeBuild("jsonapi-openapi-gradle-plugin") }` and apply `id("com.jsonapi.openapi")` without a version.
+**Composite build (contributors):** include the plugin project in `pluginManagement { includeBuild("opsonapi-gradle-plugin") }` and apply `id("com.opsonapi")` without a version.
 
-**Maven Central:** not published yet; coordinates will be `com.jsonapi.openapi:com.jsonapi.openapi.gradle.plugin`.
+**Maven Central:** not published yet; coordinates will be `com.opsonapi:com.opsonapi.gradle.plugin`.
 
 ## DSL reference
 
 ```kotlin
-jsonapiOpenapi {
+opsonapi {
     specFile.set(file("src/main/resources/openapi/openapi.yaml"))
     generatedPackage.set("com.example.generated")
     failOnWarnings.set(true)
@@ -47,7 +47,7 @@ jsonapiOpenapi {
 | Property | Default |
 |----------|---------|
 | `specFile` | `src/main/resources/openapi/openapi.yaml` |
-| `generatedPackage` | `com.jsonapi.generated` |
+| `generatedPackage` | `com.opsonapi.generated` |
 | `failOnWarnings` | `true` |
 | `controllerSourceDirs` | `[src/main/java]` |
 | `controllerPathsOutput` | `build/generated/openapi/controller-paths.yaml` |
@@ -66,10 +66,10 @@ flowchart LR
 | Task | Output |
 |------|--------|
 | `validateOpenApi` | Fails build on parse/validation errors |
-| `generateWireSchemas` | `build/generated/resources/openapi/schemas/*.yaml` with `$defs/jsonapi-*` |
+| `generateWireSchemas` | `build/generated/resources/openapi/schemas/*.yaml` with `$defs/opsonapi-*` |
 | `convertOpenApiToJson` | `build/generated/resources/openapi/openapi/openapi.json` |
 | `generateOpenApiFromControllers` | `build/generated/openapi/controller-paths.yaml` |
-| `generateJsonApiSupport` | `build/generated/sources/jsonapi/{package}/` context classes + registry |
+| `generateJsonApiSupport` | `build/generated/sources/opsonapi/{package}/` context classes + registry |
 
 Generated source and resource directories are registered on the `main` source set automatically.
 

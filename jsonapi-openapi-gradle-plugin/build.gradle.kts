@@ -3,7 +3,7 @@ plugins {
     `maven-publish`
 }
 
-group = "com.jsonapi.openapi"
+group = "com.opsonapi"
 version = property("projectVersion").toString()
 
 repositories {
@@ -20,10 +20,10 @@ java {
 
 gradlePlugin {
     plugins {
-        create("jsonapiOpenapi") {
-            id = "com.jsonapi.openapi"
-            implementationClass = "com.jsonapi.openapi.gradle.JsonApiOpenApiPlugin"
-            displayName = "JSON:API OpenAPI Gradle Plugin"
+        create("opsonapi") {
+            id = "com.opsonapi"
+            implementationClass = "com.opsonapi.gradle.OpsonApiPlugin"
+            displayName = "OpsonAPI Gradle Plugin"
             description = "Generates JSON:API wire schemas and support code from OpenAPI 3.1 specs"
         }
     }
@@ -43,7 +43,7 @@ dependencies {
 publishing {
     publications.withType<MavenPublication>().configureEach {
         pom {
-            name.set("JSON:API OpenAPI Gradle Plugin")
+            name.set("OpsonAPI Gradle Plugin")
             description.set("Gradle plugin for JSON:API wire schema generation from OpenAPI specs")
         }
     }
