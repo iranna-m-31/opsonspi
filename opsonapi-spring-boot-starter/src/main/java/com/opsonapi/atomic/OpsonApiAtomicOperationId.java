@@ -1,6 +1,6 @@
 package com.opsonapi.atomic;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import tools.jackson.databind.JsonNode;
 import com.opsonapi.exception.OpsonApiValidationException;
 
 /** Derives operation IDs like zeq {@code AtomicService.createOperationID}. */

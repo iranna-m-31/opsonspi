@@ -1,6 +1,6 @@
 package com.opsonapi.support;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import tools.jackson.databind.JsonNode;
 import com.opsonapi.atomic.OpsonApiAtomicOperationId;
 import com.opsonapi.context.OpsonApiServiceContext;
 import com.opsonapi.exception.OpsonApiValidationException;

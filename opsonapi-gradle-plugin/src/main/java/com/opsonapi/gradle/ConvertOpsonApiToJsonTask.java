@@ -33,6 +33,7 @@ public abstract class ConvertOpsonApiToJsonTask extends DefaultTask {
   public abstract Property<Boolean> getFailOnWarnings();
 
   @InputDirectory
+  @PathSensitive(PathSensitivity.RELATIVE)
   public abstract DirectoryProperty getWireSchemasDirectory();
 
   @OutputFile

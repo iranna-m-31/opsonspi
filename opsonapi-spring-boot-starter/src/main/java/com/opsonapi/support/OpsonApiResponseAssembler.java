@@ -1,9 +1,9 @@
 package com.opsonapi.support;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.node.ArrayNode;
+import tools.jackson.databind.node.ObjectNode;
 import com.opsonapi.model.OpsonApiResponseEntity;
 import com.opsonapi.registry.OpsonApiSpecRegistry;
 import com.opsonapi.registry.OpsonApiSpecRegistry.SchemaMetadata;
@@ -49,9 +49,9 @@ public class OpsonApiResponseAssembler {
       ArrayNode included = objectMapper.createArrayNode();
       for (Object item : result.included()) {
         if (item instanceof JsonNode n) {
-          added(n);
+          included.add(n);
         } else {
-          added(objectMapper.valueToTree(item));
+          included.add(objectMapper.valueToTree(item));
         }
       }
       root.set("included", included);

@@ -1,6 +1,6 @@
 package com.opsonapi.web;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import tools.jackson.databind.JsonNode;
 import com.opsonapi.atomic.OpsonApiAtomicProcessor;
 import com.opsonapi.autoconfigure.OpsonApiProperties;
 import com.opsonapi.context.OpsonApiServiceContext;
