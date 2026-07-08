@@ -1,8 +1,8 @@
 package com.opsonapi.support;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.node.ObjectNode;
 import com.opsonapi.context.ServiceContext;
 import com.opsonapi.registry.OpsonApiSpecRegistry;
 import com.opsonapi.registry.OpsonApiSpecRegistry.SchemaMetadata;
@@ -129,11 +129,11 @@ public class OpsonApiEntityMapper {
     String segment = requestPath.substring(idx + marker.length());
     int slash = segment.indexOf('/');
     if (slash >= 0) {
-      segment = substring(0, slash);
+      segment = segment.substring(0, slash);
     }
     int query = segment.indexOf('?');
     if (query >= 0) {
-      segment = substring(0, query);
+      segment = segment.substring(0, query);
     }
     return kebabToCamel(segment);
   }
@@ -251,29 +251,29 @@ public class OpsonApiEntityMapper {
   }
 
   private void applyLegacyMapping(Object entity, String mapping, JsonNode value) throws Exception {
-    String simpleName = substring(mapping, indexOf(mapping, '.') + 1);
-    if (contains(simpleName, '.')) {
-      simpleName = substring(simpleName, lastIndexOf(simpleName, '.') + 1);
+    String simpleName = mapping.substring(mapping.indexOf('.') + 1);
+    if (simpleName.contains(".")) {
+      simpleName = simpleName.substring(simpleName.lastIndexOf('.') + 1);
     }
     setFieldFromJson(entity, simpleName, value);
   }
 
   private void setFieldFromJson(Object entity, String fieldName, JsonNode value) throws Exception {
-    Field field = findField(getClass(object), fieldName);
+    Field field = findField(entity.getClass(), fieldName);
     if (field == null) {
-      field = findField(getClass(object), toCamelCase(fieldName));
+      field = findField(entity.getClass(), toCamelCase(fieldName));
     }
     if (field == null) return;
     field.setAccessible(true);
     Object converted = objectMapper.convertValue(value, field.getType());
-    field.set(object, converted);
+    field.set(entity, converted);
   }
 
-  private void setField(Object object, String name, Object value) throws Exception {
-    Field field = findField(getClass(object), name);
+  private void setField(Object entity, String name, Object value) throws Exception {
+    Field field = findField(entity.getClass(), name);
     if (field != null) {
       field.setAccessible(true);
-      field.set(object, value);
+      field.set(entity, value);
     }
   }
 
@@ -297,26 +297,5 @@ public class OpsonApiEntityMapper {
   private String toCamelCase(String s) {
     if (s == null || s.isEmpty()) return s;
     return Character.toLowerCase(s.charAt(0)) + s.substring(1);
-  }
-
-  // Helper methods for string operations since we can't use StringUtils
-  private static String substring(String str, int begin) {
-    return (str == null) ? null : str.substring(begin);
-  }
-
-  private static int indexOf(String str, int ch) {
-    return (str == null) ? -1 : str.indexOf(ch);
-  }
-
-  private static boolean contains(String str, String searchStr) {
-    return (str == null) ? false : str.contains(searchStr);
-  }
-
-  private static int lastIndexOf(String str, int ch) {
-    return (str == null) ? -1 : str.lastIndexOf(ch);
-  }
-
-  private static Class<?> getClass(Object obj) {
-    return (obj == null) ? null : obj.getClass();
   }
 }

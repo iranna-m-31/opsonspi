@@ -1,8 +1,8 @@
 package com.opsonapi.atomic;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.node.ObjectNode;
 import com.opsonapi.autoconfigure.OpsonApiProperties;
 import com.opsonapi.context.OpsonApiServiceContext;
 import com.opsonapi.context.OpsonApiServiceContextFactory;
@@ -15,6 +15,7 @@ import com.opsonapi.support.OpsonApiRequestValidator;
 import com.opsonapi.support.OpsonApiServiceInvoker;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -57,24 +58,27 @@ public class OpsonApiAtomicProcessor {
 
     Map<String, String> lidMapper = new HashMap<>();
 
-    for (JsonNode operationNode : body.get("atomic:operations").values()) {
-      resolveLidsInOperation(operationNode, lidMapper);
+    JsonNode operationsNode = body.get("atomic:operations");
+    if (operationsNode != null && operationsNode.isObject()) {
+      for (JsonNode operationNode : operationsNode) {
+        resolveLidsInOperation(operationNode, lidMapper);
 
-      String operationId = OpsonApiAtomicOperationId.create(operationNode);
-      OpsonApiServiceContext opContext =
-          contextFactory.create(request, operationNode, operation, requestPath);
-      opContext.setParentContext(parentContext);
+        String operationId = OpsonApiAtomicOperationId.create(operationNode);
+        OpsonApiServiceContext opContext =
+            contextFactory.create(request, operationNode, operation, requestPath);
+        opContext.setParentContext(parentContext);
 
-      Object entity = mapAtomicEntity(operationNode, operationId, operation, opContext);
-      String serviceRef = registry.resolveAtomicOperationService(operation, operationId);
-      if (serviceRef == null) {
-        throw new OpsonApiValidationException(
-            500, "Configuration Error", "No x-service for atomic operation " + operationId);
+        Object entity = mapAtomicEntity(operationNode, operationId, operation, opContext);
+        String serviceRef = registry.resolveAtomicOperationService(operation, operationId);
+        if (serviceRef == null) {
+          throw new OpsonApiValidationException(
+              500, "Configuration Error", "No x-service for atomic operation " + operationId);
+        }
+
+        OpsonApiResponseEntity<?> result =
+            serviceInvoker.invoke(serviceRef, opContext, entity, operation);
+        storeLidFromResult(operationNode, result, lidMapper);
       }
-
-      OpsonApiResponseEntity<?> result =
-          serviceInvoker.invoke(serviceRef, opContext, entity, operation);
-      storeLidFromResult(operationNode, result, lidMapper);
     }
     return OpsonApiResponseEntity.noContent();
   }
@@ -139,8 +143,8 @@ public class OpsonApiAtomicProcessor {
       OpsonApiServiceContext opContext)
       throws Exception {
     String resourceType = OpsonApiAtomicOperationId.resourceType(operationId);
-    OperationDescriptor synthetic =
-        new OperationDescriptor(
+    OpsonApiOperationDescriptor synthetic =
+        new OpsonApiOperationDescriptor(
             operationId,
             "POST",
             operation.pathTemplate(),
