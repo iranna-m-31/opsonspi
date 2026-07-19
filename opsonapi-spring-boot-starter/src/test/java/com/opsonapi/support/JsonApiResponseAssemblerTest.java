@@ -19,8 +19,8 @@ import org.springframework.test.context.TestPropertySource;
 @SpringBootTest(classes = StarterTestApplication.class)
 @TestPropertySource(
     properties = {
-      "jsonapi.openapi.location=classpath:openapi/openapi.json",
-      "jsonapi.openapi.entity-schemas-location=classpath:openapi/schemas/"
+      "opsonapi.location=classpath:openapi/openapi.json",
+      "opsonapi.entity-schemas-location=classpath:openapi/schemas/"
     })
 class OpsonApiResponseAssemblerTest {
 
