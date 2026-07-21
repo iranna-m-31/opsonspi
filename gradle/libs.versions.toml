@@ -2,7 +2,7 @@
 java = "25"
 springBoot = "4.0.6"
 dependencyManagement = "1.1.7"
-swaggerParser = "2.1.38"
+swaggerParser = "2.1.45"
 javapoet = "1.13.0"
 jsonSchemaValidator = "1.5.9"
 restate = "2.5.0"
