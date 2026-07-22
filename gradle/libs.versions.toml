@@ -17,7 +17,7 @@ jooqPlugin = "10.2"
 liquibaseCore = "5.0.1"
 openhtmltopdf = "1.0.10"
 jjwt = "0.12.6"
-testcontainers = "2.0.2"
+testcontainers = "2.0.5"
 jacoco = "0.8.14"
 
 [libraries]
